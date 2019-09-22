@@ -1,10 +1,11 @@
 import serial
+import time
 #ser = serial.Serial('COM9')  # open serial port
 #print(ser.name)         # check which port was really used
 #ser.write(b'hello')     # write a string
 #ser.close()             # close port
 
-with serial.Serial('COM9', 9600, timeout=1) as ser:
+with serial.Serial('COM4', 9600, timeout=1) as ser:
     x = ser.read(20)          # read one byte
     ser.write(b'$')  # write a string
     s = ser.read(10)        # read up to ten bytes (timeout)
@@ -24,12 +25,19 @@ with serial.Serial('COM9', 9600, timeout=1) as ser:
         else:
             # send the character to the device
             # (note that I happend a \r\n carriage return and line feed to the characters - this is requested by my device)
-            ser.write(input_t + '\r\n')
+            input_t=input_t + "\r\n"
+            ser.write(input_t.encode())
             out = ''
             # let's wait one second before reading output (let's give device time to answer)
             time.sleep(1)
             while ser.inWaiting() > 0:
-                out += ser.read(1)
+                line = ser.readline()
+                out = out + str(line) + "\r\n"
+                #print (">>", line)
+                #out = ser.read(20)
+                #out = str(out)
+                #print (">>", out)
 
             if out != '':
                 print (">>", out)
+                #print(msg.decode('utf-8'))
