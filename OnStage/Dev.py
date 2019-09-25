@@ -154,9 +154,6 @@ def main():
 if __name__ == '__main__':              # if we're running file directly and not importing it
     main()
 
-#dlg.pushButton.clicked.connect(Convert)
-#dlg.pushButton.clicked.connect(Convert)
-#dlg.lineEdit_2.setReadOnly(True)
 
 
 dlg.show()

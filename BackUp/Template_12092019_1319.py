@@ -43,13 +43,13 @@ def show_Message(title="Test",message="Test"):
 
 
 def showimageWithQTAndOpenCV(image):
-        img = cv2.imread(image,-1)
-        height, width, channel = img.shape
-        bytesPerLine = 3 * width
-        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
-        pixmap = QPixmap.fromImage(qImg)
-        dlg.lblImage.setPixmap(pixmap)
-        dlg.lblImage.show
+    img = cv2.imread(image,-1)
+    height, width, channel = img.shape
+    bytesPerLine = 3 * width
+    qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+    pixmap = QPixmap.fromImage(qImg)
+    dlg.lblImage.setPixmap(pixmap)
+    dlg.lblImage.show
 
 def showimageUsingOpenCV(image):
     img = cv2.imread(image, -1)
