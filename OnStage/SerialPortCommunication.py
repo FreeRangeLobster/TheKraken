@@ -5,7 +5,7 @@ import time
 #ser.write(b'hello')     # write a string
 #ser.close()             # close port
 
-with serial.Serial('COM12', 9600, timeout=1) as ser:
+with serial.Serial('COM9', 9600, timeout=1) as ser:
     x = ser.read(20)          # read one byte
     ser.write(b'$')  # write a string
     s = ser.read(10)        # read up to ten bytes (timeout)
