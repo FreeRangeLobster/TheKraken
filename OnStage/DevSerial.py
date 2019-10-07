@@ -21,7 +21,6 @@ def Convert():
 @QtCore.pyqtSlot()
 def send(self):
         a = "$$" + "\r\n"
-        #a=self.message_le.text() + "\r\n"
         self.serial.write(a.encode())
 
 
@@ -30,7 +29,6 @@ def receive():
     while serial.canReadLine():
         text = serial.readLine().data().decode()
         text = text.rstrip('\r\n')
-        #self.output_te.append(text)
         dlg.listWidget.addItem(text)
 
 app = QtWidgets.QApplication([])
@@ -63,7 +61,6 @@ def GetImageName():
 def show_Message(title="Test",message="Test"):
     QMessageBox.information(None,title,message)
     a = "$$" + "\r\n"
-    # a=self.message_le.text() + "\r\n"
     serial.write(a.encode())
 
 def showimageWithQTAndOpenCV(image):
