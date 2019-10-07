@@ -1,6 +1,6 @@
 #Read on https://www.youtube.com/watch?v=sRNjcyBXruA
 
-from PyQt5 import QtWidgets, uic, QtSerialPort
+from PyQt5 import QtWidgets, uic, QtSerialPort,QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import json
@@ -18,10 +18,30 @@ from PyQt5.QtWidgets import QLabel
 def Convert():
     dlg.lineEdit_2.setText(str(float(dlg.lineEdit_1.text())*1.25))
 
+@QtCore.pyqtSlot()
+def send(self):
+        a = "$$" + "\r\n"
+        #a=self.message_le.text() + "\r\n"
+        self.serial.write(a.encode())
+
+
+@QtCore.pyqtSlot()
+def receive():
+    while serial.canReadLine():
+        text = serial.readLine().data().decode()
+        text = text.rstrip('\r\n')
+        #self.output_te.append(text)
+        dlg.listWidget.addItem(text)
+
 app = QtWidgets.QApplication([])
 dlg = uic.loadUi("test.ui")
-picName = "Lena.png"
+serial = QtSerialPort.QSerialPort('COM10', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
+serial.open(QtCore.QIODevice.ReadWrite)
 
+
+
+
+picName = "Lena.png"
 
 
 def addItem():
@@ -42,6 +62,9 @@ def GetImageName():
 
 def show_Message(title="Test",message="Test"):
     QMessageBox.information(None,title,message)
+    a = "$$" + "\r\n"
+    # a=self.message_le.text() + "\r\n"
+    serial.write(a.encode())
 
 def showimageWithQTAndOpenCV(image):
         img = cv2.imread(image,-1)
@@ -132,6 +155,10 @@ def FilterImageAndSave(image):
 
 
 def main():
+   # w = Widget()
+   # w.show()
+    serial.open(QtCore.QIODevice.ReadWrite)
+
     showimageWithQTAndOpenCV("Lena.png")
 
     dlg.pushButton.clicked.connect(addItem)
@@ -141,6 +168,7 @@ def main():
     dlg.cmdShowFilteredImage.clicked.connect(lambda: FilterImageAndSave("Lena.png"))
     dlg.cmdShowImage.clicked.connect(lambda: showimageWithQTAndOpenCV(picName))
     dlg.cmdGaussianBlur.clicked.connect(lambda: GaussianFilter(picName))
+
     #cmdGaussianBlur
 
 

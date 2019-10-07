@@ -1,6 +1,4 @@
-from PyQt5 import QtCore, QtWidgets, QtSerialPort, uic
-
-
+from PyQt5 import QtCore, QtWidgets, QtSerialPort
 
 class Widget(QtWidgets.QWidget):
     def __init__(self, parent=None):
@@ -25,7 +23,7 @@ class Widget(QtWidgets.QWidget):
         lay.addWidget(self.button)
 
         self.serial = QtSerialPort.QSerialPort(
-            'COM10',#'/dev/tty.usbmodem14201',
+            'COM9',#'/dev/tty.usbmodem14201',
             baudRate=QtSerialPort.QSerialPort.Baud9600,
             readyRead=self.receive
         )
