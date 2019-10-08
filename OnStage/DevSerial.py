@@ -30,11 +30,12 @@ def receive():
         text = serial.readLine().data().decode()
         text = text.rstrip('\r\n')
         dlg.listWidget.addItem(text)
+        dlg.listWidget.scrollToBottom()
 
 app = QtWidgets.QApplication([])
 dlg = uic.loadUi("test.ui")
-serial = QtSerialPort.QSerialPort('COM10', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
-serial.open(QtCore.QIODevice.ReadWrite)
+serial = QtSerialPort.QSerialPort('COM20', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
+#serial.open(QtCore.QIODevice.ReadWrite)
 
 
 
@@ -46,6 +47,18 @@ def addItem():
     if not dlg.lineEdit_1.text()=="":
         dlg.listWidget.addItem(dlg.lineEdit_1.text())
         dlg.lineEdit_1.setText("")
+    else:
+        show_Message("Warning", "Nothing typed")
+
+def SendCommand():
+    if not dlg.lineCommand.text()=="":
+        dlg.listWidget.addItem("Command:  " + dlg.lineCommand.text())
+        a = dlg.lineCommand.text() + "\r\n"
+        serial.write(a.encode())
+
+
+
+        #dlg.lineEdit_1.setText("")
     else:
         show_Message("Warning", "Nothing typed")
 
@@ -144,6 +157,12 @@ def FilterImageAndSave(image):
 
     pixmap = QPixmap('LenaB.png')
     dlg.lblImage.setPixmap(pixmap)
+def OpenPort():
+    serial.open(QtCore.QIODevice.ReadWrite)
+
+def GetStatusReport():
+    a = "?" + "\r\n"
+    serial.write(a.encode())
 
 
 
@@ -154,19 +173,20 @@ def FilterImageAndSave(image):
 def main():
    # w = Widget()
    # w.show()
-    serial.open(QtCore.QIODevice.ReadWrite)
 
+    #Bindings
     showimageWithQTAndOpenCV("Lena.png")
-
     dlg.pushButton.clicked.connect(addItem)
+    dlg.cmdSendCommand.clicked.connect(SendCommand)
     dlg.cmdGetImageName.clicked.connect(GetImageName)
     dlg.cmdShowMessage.clicked.connect(lambda: show_Message('hey','Boy'))
     dlg.cmdShowImageUsingOpenCV.clicked.connect(lambda: showimageUsingOpenCV2())
     dlg.cmdShowFilteredImage.clicked.connect(lambda: FilterImageAndSave("Lena.png"))
     dlg.cmdShowImage.clicked.connect(lambda: showimageWithQTAndOpenCV(picName))
     dlg.cmdGaussianBlur.clicked.connect(lambda: GaussianFilter(picName))
+    dlg.cmdOpenPort.clicked.connect(lambda: OpenPort())
+    dlg.cmdGetStatusReport.clicked.connect(lambda: GetStatusReport())
 
-    #cmdGaussianBlur
 
 
     #showimage("Lena.png")
