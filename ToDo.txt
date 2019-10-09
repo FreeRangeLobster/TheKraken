@@ -1,0 +1,3 @@
+-Timer to get machine status
+-Buttons to move the picker
+-Add settings

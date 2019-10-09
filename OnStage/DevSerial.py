@@ -164,6 +164,11 @@ def GetStatusReport():
     a = "?" + "\r\n"
     serial.write(a.encode())
 
+#def Move(Direction,Distance):
+#    if Direction
+#    a = "?" + "\r\n"
+#    serial.write(a.encode())
+
 
 
 
