@@ -170,8 +170,12 @@ def GetStatusReport():
 #    serial.write(a.encode())
 
 
-
-
+def timerEvent():
+    global time
+    time = time.addSecs(1)
+    print(time.toString("hh:mm:ss"))
+    a = "?" + "\r\n"
+    serial.write(a.encode())
 
 
 
@@ -194,6 +198,7 @@ def main():
 
 
 
+
     #showimage("Lena.png")
     #FilterImageAndSave("Lena.png")
     #FilterImage("Lena.png")
@@ -209,6 +214,12 @@ def main():
 #dlg.lineEdit_1.setPlaceholderText("£")
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
+    timer = QtCore.QTimer()
+    time = QtCore.QTime(0, 0, 0)
+
+    #Timer
+    timer.timeout.connect(timerEvent)
+    timer.start(3000)
     main()
 
 
