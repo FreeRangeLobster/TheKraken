@@ -38,7 +38,9 @@ ItemNo|Description|status
 
 ### Cheatsheet
 #### Git
-Command|Description
+
+Command | Description
+--- | --- 
 git fetch | gets the remote status of the repository
 git status | display the local current status of the repository
 git pull | updates changes in the local repository
