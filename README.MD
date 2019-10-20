@@ -34,12 +34,14 @@ ItemNo|Description|status
 11|Add settings| Open
 --- | --- | ---
 
+---
 
 ### Cheatsheet
 #### Git
-git fetch : gets the remote status of the repository
-git status : display the local current status of the repository
-git pull : updates changes in the local repository
-git add . : updates (adds, removes) files from local to remote repository
-git commit -m "" : Commits the changes and allows for a message to be updated
-git push origin master: Pushes changes to remote repository
+Command|Description
+git fetch | gets the remote status of the repository
+git status | display the local current status of the repository
+git pull | updates changes in the local repository
+git add . | updates (adds, removes) files and infor from local to remote repository
+git commit -m "" | Commits the changes and allows for a message to be updated
+git push origin master| Pushes changes to remote repository
