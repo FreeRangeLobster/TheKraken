@@ -7,6 +7,7 @@ import json
 import cv2
 import numpy as np
 import imutils
+import First
 
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QLabel
@@ -176,6 +177,7 @@ def timerEvent():
     print(time.toString("hh:mm:ss"))
     a = "?" + "\r\n"
     serial.write(a.encode())
+    First.foo()
 
 
 
