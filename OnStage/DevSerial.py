@@ -9,6 +9,8 @@ import numpy as np
 import imutils
 import First
 
+
+
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QLabel
 
@@ -181,6 +183,8 @@ def timerEvent():
 
 
 
+
+
 def main():
    # w = Widget()
    # w.show()
@@ -197,6 +201,9 @@ def main():
     dlg.cmdGaussianBlur.clicked.connect(lambda: GaussianFilter(picName))
     dlg.cmdOpenPort.clicked.connect(lambda: OpenPort())
     dlg.cmdGetStatusReport.clicked.connect(lambda: GetStatusReport())
+    dlg.cBoxPortList.addItem("C++")
+
+
 
 
 
@@ -222,6 +229,7 @@ if __name__ == '__main__':              # if we're running file directly and not
     #Timer
     timer.timeout.connect(timerEvent)
     timer.start(3000)
+
     main()
 
 

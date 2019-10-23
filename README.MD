@@ -22,7 +22,7 @@ The pick and place machine is controlled using GRBL platform. This system receiv
 ItemNo|Description|status
 --- | --- | ---
 1|Add Serial port Handler to the application| InProgress
-2|Add More information to the MD file| Open
+2|Add initial information to the MD file| Closed
 3|Add Pictures| Open
 4|Add more details about the application| Open
 5|Timer to get machine status| Closed
@@ -32,6 +32,7 @@ ItemNo|Description|status
 9|Timer to get machine status| Open
 10|Buttons to move the picker| Open
 11|Add settings| Open
+12|Segregate sytem in several scripts, 1 for rig, 1 for vision, 1 for settings| Open
 --- | --- | ---
 
 ---
