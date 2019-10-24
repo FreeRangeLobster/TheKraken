@@ -22,12 +22,15 @@ def serial_ports():
         raise EnvironmentError('Unsupported platform')
 
     result = []
+
+    nSerial=serial
+
     for port in ports:
         try:
-            s = serial.Serial(port)
+            s = nSerial.Serial(port)
             s.close()
             result.append(port)
-        except (OSError, serial.SerialException):
+        except (OSError, nSerial.SerialException):
             pass
     return result
 

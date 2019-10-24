@@ -8,6 +8,9 @@ import cv2
 import numpy as np
 import imutils
 import First
+import sys
+import glob
+import serial #only used to list ports available
 
 
 
@@ -29,15 +32,15 @@ def send(self):
 
 @QtCore.pyqtSlot()
 def receive():
-    while serial.canReadLine():
-        text = serial.readLine().data().decode()
+    while Qserial.canReadLine():
+        text = Qserial.readLine().data().decode()
         text = text.rstrip('\r\n')
         dlg.listWidget.addItem(text)
         dlg.listWidget.scrollToBottom()
 
 app = QtWidgets.QApplication([])
 dlg = uic.loadUi("test.ui")
-serial = QtSerialPort.QSerialPort('COM20', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
+Qserial = QtSerialPort.QSerialPort('COM20', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
 #serial.open(QtCore.QIODevice.ReadWrite)
 
 
@@ -57,7 +60,7 @@ def SendCommand():
     if not dlg.lineCommand.text()=="":
         dlg.listWidget.addItem("Command:  " + dlg.lineCommand.text())
         a = dlg.lineCommand.text() + "\r\n"
-        serial.write(a.encode())
+        Qserial.write(a.encode())
 
 
 
@@ -77,7 +80,7 @@ def GetImageName():
 def show_Message(title="Test",message="Test"):
     QMessageBox.information(None,title,message)
     a = "$$" + "\r\n"
-    serial.write(a.encode())
+    Qserial.write(a.encode())
 
 def showimageWithQTAndOpenCV(image):
         img = cv2.imread(image,-1)
@@ -161,11 +164,11 @@ def FilterImageAndSave(image):
     pixmap = QPixmap('LenaB.png')
     dlg.lblImage.setPixmap(pixmap)
 def OpenPort():
-    serial.open(QtCore.QIODevice.ReadWrite)
+    Qserial.open(QtCore.QIODevice.ReadWrite)
 
 def GetStatusReport():
     a = "?" + "\r\n"
-    serial.write(a.encode())
+    Qserial.write(a.encode())
 
 #def Move(Direction,Distance):
 #    if Direction
@@ -178,8 +181,38 @@ def timerEvent():
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
     a = "?" + "\r\n"
-    serial.write(a.encode())
+    Qserial.write(a.encode())
     First.foo()
+
+
+def serial_ports():
+    """ Lists serial port names
+
+        :raises EnvironmentError:
+            On unsupported or unknown platforms
+        :returns:
+            A list of the serial ports available on the system
+    """
+    if sys.platform.startswith('win'):
+        ports = ['COM%s' % (i + 1) for i in range(256)]
+    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        # this excludes your current terminal "/dev/tty"
+        ports = glob.glob('/dev/tty[A-Za-z]*')
+    elif sys.platform.startswith('darwin'):
+        ports = glob.glob('/dev/tty.*')
+    else:
+        raise EnvironmentError('Unsupported platform')
+
+    result = []
+    for port in ports:
+        try:
+            s = serial.Serial(port)
+            s.close()
+            result.append(port)
+            dlg.cBoxPortList.addItem(port)
+        except (OSError, serial.SerialException):
+            pass
+    return result
 
 
 
@@ -188,6 +221,7 @@ def timerEvent():
 def main():
    # w = Widget()
    # w.show()
+    print(serial_ports())
 
     #Bindings
     showimageWithQTAndOpenCV("Lena.png")
@@ -201,7 +235,9 @@ def main():
     dlg.cmdGaussianBlur.clicked.connect(lambda: GaussianFilter(picName))
     dlg.cmdOpenPort.clicked.connect(lambda: OpenPort())
     dlg.cmdGetStatusReport.clicked.connect(lambda: GetStatusReport())
-    dlg.cBoxPortList.addItem("C++")
+
+
+
 
 
 
@@ -226,11 +262,13 @@ if __name__ == '__main__':              # if we're running file directly and not
     timer = QtCore.QTimer()
     time = QtCore.QTime(0, 0, 0)
 
+    main()
+
     #Timer
     timer.timeout.connect(timerEvent)
     timer.start(3000)
 
-    main()
+
 
 
 
