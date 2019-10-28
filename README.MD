@@ -16,8 +16,11 @@ From the vision inspection the weapon of choice is OpenCV using python as a scri
 The pick and place machine is controlled using GRBL platform. This system receives positions from the application and drives the robot around.The mechanical system was designed using solid works. The components of the rig were recycled and some of them 3d printed. The electrical drivers of the motors were developed using Arduino and a CNC arduino shield Keyestudio UNO CNC Kit V3.
 
 
-![Application](/Screengrabs/Application2.png)
-![Application](/Screengrabs/Application.png)
+![Application](/Screengrabs/Application2.PNG)
+Format: ![Alt Text](url)
+![Application](/Screengrabs/Application.PNG)
+Format: ![Alt Text](url)
+
 
 
 # To Do is To Be 
