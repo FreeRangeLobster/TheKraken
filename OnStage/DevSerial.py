@@ -30,11 +30,20 @@ def send(self):
         self.serial.write(a.encode())
 
 
+def ParseMessage_MachineStatus(sMessage):
+    sStatusList = (sMessage.split(',', 1))
+    sStatus=sStatusList[0]
+    sStatus=sStatus.replace("<", "")
+    return sStatus
+
 @QtCore.pyqtSlot()
 def receive():
     while Qserial.canReadLine():
         text = Qserial.readLine().data().decode()
         text = text.rstrip('\r\n')
+        sStatus=ParseMessage_MachineStatus(text)
+        print(sStatus)
+        dlg.lineRobotStatus.setText(sStatus)
         dlg.listWidget.addItem(text)
         dlg.listWidget.scrollToBottom()
 
@@ -105,7 +114,6 @@ def showimage2(image):
     pixmap = QPixmap('Lena.png')
     dlg.lblImage.setPixmap(pixmap)
 
-
 def GaussianFilter(image):
     image = cv2.imread(image)
     resized = imutils.resize(image, width=300)
@@ -142,10 +150,6 @@ def GaussianFilter(image):
         cv2.waitKey(0)
 
     cv2.waitKey(0)
-
-
-
-
 
 def FilterImage(image):
     img = cv2.imread(image)

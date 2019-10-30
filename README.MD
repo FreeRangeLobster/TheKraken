@@ -32,11 +32,11 @@ ItemNo|Description|status
 2|Add initial information to the MD file| Closed
 3|Add Pictures| Closed
 4|Add more details about the application| Open
-5|Timer to get machine status| In Progress
+5|Timer to get machine status| Closed
 6|Buttons to move the picker| Closed
 7|Add settings| Open
 8|Add message parser t show current position| Open
-9|Timer to get machine status| Open
+9|Filter current position messages from log| Open
 10|Buttons to move the picker| Open
 11|Add settings| Open
 12|Segregate sytem in several scripts, 1 for rig, 1 for vision, 1 for settings| Open
