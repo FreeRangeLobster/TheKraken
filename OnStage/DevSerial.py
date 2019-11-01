@@ -27,7 +27,7 @@ def Convert():
 @QtCore.pyqtSlot()
 def send(self):
         a = "$$" + "\r\n"
-        self.serial.write(a.encode())
+        #self.serial.write(a.encode())
 
 
 def ParseMessage_MachineStatus(sMessage):
@@ -49,7 +49,7 @@ def receive():
 
 app = QtWidgets.QApplication([])
 dlg = uic.loadUi("test.ui")
-Qserial = QtSerialPort.QSerialPort('COM20', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
+Qserial = QtSerialPort.QSerialPort('COM4', baudRate=QtSerialPort.QSerialPort.Baud9600,readyRead=receive)
 #serial.open(QtCore.QIODevice.ReadWrite)
 
 
@@ -173,6 +173,8 @@ def OpenPort():
 def GetStatusReport():
     a = "?" + "\r\n"
     Qserial.write(a.encode())
+    #dlg.cmdGetStatusReport.setColor(self.backgroundRole(), Qt.white)
+    dlg.cmdGetStatusReport.setStyleSheet("background-color: red")
 
 #def Move(Direction,Distance):
 #    if Direction

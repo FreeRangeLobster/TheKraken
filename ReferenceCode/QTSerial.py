@@ -25,7 +25,7 @@ class Widget(QtWidgets.QWidget):
         lay.addWidget(self.button)
 
         self.serial = QtSerialPort.QSerialPort(
-            'COM10',#'/dev/tty.usbmodem14201',
+            'COM4',#'/dev/tty.usbmodem14201',
             baudRate=QtSerialPort.QSerialPort.Baud9600,
             readyRead=self.receive
         )

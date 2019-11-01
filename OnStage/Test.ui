@@ -258,6 +258,9 @@ Image</string>
      <height>23</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Open Port</string>
    </property>
@@ -270,6 +273,9 @@ Image</string>
      <width>101</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Current Position</string>
