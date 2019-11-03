@@ -370,6 +370,38 @@ Image</string>
     <string>Machine Position</string>
    </property>
   </widget>
+  <widget class="QLabel" name="lblLoop">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>540</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Loop</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cmdPeriodicUpdate">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>560</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Periodic Update</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

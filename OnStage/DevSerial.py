@@ -56,6 +56,7 @@ Qserial = QtSerialPort.QSerialPort('COM4', baudRate=QtSerialPort.QSerialPort.Bau
 
 
 picName = "Lena.png"
+bColor = 1
 
 
 def addItem():
@@ -190,6 +191,20 @@ def timerEvent():
     Qserial.write(a.encode())
     First.foo()
 
+def enablePeriodicUpdate():
+    #QColor
+    global bColor
+    if bColor == 1 :
+        dlg.lblLoop.setStyleSheet("background-color: red")
+        bColor = 2
+    else:
+        bColor = 1
+        dlg.lblLoop.setStyleSheet("background-color: white")
+
+    #QColor
+    color = dlg.lblLoop.palette().button().color()
+    print(color.name())
+
 
 def serial_ports():
     """ Lists serial port names
@@ -241,7 +256,7 @@ def main():
     dlg.cmdGaussianBlur.clicked.connect(lambda: GaussianFilter(picName))
     dlg.cmdOpenPort.clicked.connect(lambda: OpenPort())
     dlg.cmdGetStatusReport.clicked.connect(lambda: GetStatusReport())
-
+    dlg.cmdPeriodicUpdate.clicked.connect(lambda: enablePeriodicUpdate())
 
 
 
