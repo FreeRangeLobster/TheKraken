@@ -56,7 +56,7 @@ Qserial = QtSerialPort.QSerialPort('COM4', baudRate=QtSerialPort.QSerialPort.Bau
 
 
 picName = "Lena.png"
-bColor = 1
+bTimerEnabled = 1
 
 
 def addItem():
@@ -184,22 +184,26 @@ def GetStatusReport():
 
 
 def timerEvent():
-    global time
-    time = time.addSecs(1)
-    print(time.toString("hh:mm:ss"))
-    a = "?" + "\r\n"
-    Qserial.write(a.encode())
-    First.foo()
+    global bTimerEnabled
+    if bTimerEnabled == 1 :
+        global time
+        time = time.addSecs(1)
+        print(time.toString("hh:mm:ss"))
+        a = "?" + "\r\n"
+        Qserial.write(a.encode())
+        First.foo()
 
 def enablePeriodicUpdate():
     #QColor
-    global bColor
-    if bColor == 1 :
+    global bTimerEnabled
+    if bTimerEnabled == 1 :
         dlg.lblLoop.setStyleSheet("background-color: red")
-        bColor = 2
+        bTimerEnabled = 2
+
     else:
-        bColor = 1
+        bTimerEnabled = 1
         dlg.lblLoop.setStyleSheet("background-color: white")
+
 
     #QColor
     color = dlg.lblLoop.palette().button().color()
