@@ -56,7 +56,8 @@ Qserial = QtSerialPort.QSerialPort('COM4', baudRate=QtSerialPort.QSerialPort.Bau
 
 
 picName = "Lena.png"
-bTimerEnabled = 1
+bTimerEnabled = 0
+bColour =1
 
 
 def addItem():
@@ -168,7 +169,11 @@ def FilterImageAndSave(image):
 
     pixmap = QPixmap('LenaB.png')
     dlg.lblImage.setPixmap(pixmap)
+
+
 def OpenPort():
+    sSerialPort = dlg.cBoxPortList.currentText()
+    print(sSerialPort)
     Qserial.open(QtCore.QIODevice.ReadWrite)
 
 def GetStatusReport():
@@ -185,6 +190,7 @@ def GetStatusReport():
 
 def timerEvent():
     global bTimerEnabled
+    global bColour
     if bTimerEnabled == 1 :
         global time
         time = time.addSecs(1)
@@ -192,27 +198,33 @@ def timerEvent():
         a = "?" + "\r\n"
         Qserial.write(a.encode())
         First.foo()
+        if bColour == 1:
+            bColour = 0
+            dlg.lblLoop.setStyleSheet("background-color: red")
+        else:
+            bColour = 1
+            dlg.lblLoop.setStyleSheet("background-color: white")
 
 def enablePeriodicUpdate():
     #QColor
     global bTimerEnabled
-    if bTimerEnabled == 1 :
-        dlg.lblLoop.setStyleSheet("background-color: red")
-        bTimerEnabled = 2
+    if bTimerEnabled == 0:
+        # dlg.lblLoop.setStyleSheet("background-color: red")
+        dlg.cmdPeriodicUpdate.setStyleSheet("background-color: green")
+        bTimerEnabled = 1
 
     else:
-        bTimerEnabled = 1
-        dlg.lblLoop.setStyleSheet("background-color: white")
+        bTimerEnabled = 0
+        dlg.cmdPeriodicUpdate.setStyleSheet("background-color: gray")
+        # dlg.lblLoop.setStyleSheet("background-color: white")
 
-
-    #QColor
+        # Gets the colour of the button
     color = dlg.lblLoop.palette().button().color()
     print(color.name())
 
 
 def serial_ports():
     """ Lists serial port names
-
         :raises EnvironmentError:
             On unsupported or unknown platforms
         :returns:

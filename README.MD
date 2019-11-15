@@ -55,3 +55,5 @@ git pull | updates changes in the local repository
 git add . | updates (adds, removes) files and infor from local to remote repository
 git commit -m "" | Commits the changes and allows for a message to be updated
 git push origin master| Pushes changes to remote repository
+git checkout --| Reverts the files to the last commited version
+
